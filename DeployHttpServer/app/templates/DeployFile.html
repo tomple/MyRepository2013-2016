@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% for eachdict in backup_data %}
+    {% for hostname, value in eachdict.items() %}
+      {% if value[1] is sameas True %}
+        <p>{{ hostname }} <font color="Chocolate ">{{ value[0] }}</font> <font color="blue">[backup]</font> <font color="green">[sucess]</font> </p>
+      {% else %}
+        <p>{{ hostname }} <font color="Chocolate ">{{ value[0] }}</font> <font color="blue">[backup]</font> <font color="red">[fail]</font> </p>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+  <hr />
+  <form action="{{ url_for('main.restartserver') }}" method="post">
+    {% for eachdict in deploy_data %}
+      {% for hostname, value in eachdict.items() %}
+        {% if value %}
+          <p>{{ hostname }} <font color="Chocolate ">{{ value[1] }}</font> <font color="blue">[deploy]</font> <font color="green">[sucess]</font> </p>
+          <p><input type="checkbox" value="{{ hostname }} {{ value[0] }} {{ value[1] }}" name="restartboxvalue"> {{ value[1] }}
+        {% else %}
+          <p>{{ hostname }} <font color="Chocolate ">{{ value[1] }}</font> <font color="blue">[deploy]</font> <font color="red">[fail]</font> </p>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    <p><input type="submit" value="restartserver"></p>
+  </form>
+  <a href="{{ url_for('main.chosefile') }}">back</a>
+{% endblock %}

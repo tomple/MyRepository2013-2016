@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+  <form action="{{ url_for('main.deployfile') }}" method="post">
+    {% for each in data %}
+      {% for hostname, filelist in each.items() %}
+        <h3>{{ hostname }}</h3>
+        {% for filepath in filelist %}
+          <p><input type="checkbox" value="{{ hostname }} {{ filepath[0] }} {{ filepath[1] }}" name="deployboxvalue"> {{ filepath[1] }}
+        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+    <p><input type="submit" value="deployfile"></p>
+  </form>
+  <a href="{{ url_for('main.uploadfile') }}">back</a>
+{% endblock %}

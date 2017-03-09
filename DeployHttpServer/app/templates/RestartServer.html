@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+  <hr />
+  {% for eachdict in restart_data %}
+    {% for hostname, value in eachdict.items() %}
+      {% if value %}
+        <p>{{ hostname }} <font color="Chocolate ">{{ value }}</font> <font color="blue">[restart]</font> <font color="green">[sucess]</font> </p>
+      {% else %}
+        <p>{{ hostname }} <font color="Chocolate ">{{ value }}</font> <font color="blue">[restart]</font> <font color="red">[fail]</font> </p>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+  <a href="{{ url_for('main.deployfile') }}">back</a>
+{% endblock %}

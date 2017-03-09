@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+  <form action="{{ url_for('main.uploadfile') }}" method=post enctype="multipart/form-data" >
+    <p><input type="file" name="file" multiple="multiple"/>
+    <input type=submit value=uploadfile />
+  </form>
+
+  <form action="{{ url_for('main.chosefile') }}" method="post">
+    {% for each in data %}
+      <input type="checkbox" value="{{ each }}" name="uploadboxvalue"> {{ each }}
+    {% endfor %}
+      <input type="submit" value="searchfile">
+  </form>
+
+  <form action="{{ url_for('main.cleanfile') }}" method="post">
+    <p><input type="submit" value="cleanfile">
+  </form>
+{% endblock %}
